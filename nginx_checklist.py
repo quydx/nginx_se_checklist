@@ -70,7 +70,23 @@ def version():
 	configs.append('Current nginx version <= 1.6.3 FALSE')
 	state = FAILED
     return { 'id': _id, 'state': state, 'configs': configs }
-
+def user_nginx():
+    '''
+    Verify server has user nginx to run nginx 
+    '''
+    _id = 'nginx_user_verify'
+    configs = []
+    state = PASSED
+    cmd = 'id nginx'
+    out = __salt__['cmd.run'](cmd).splitlines()
+    not_exist_user = re.search( r'^(.*)(no such user)$', out[0], re.M | re.I)
+    if not not_exist_user:
+	configs.append("User nginx exists OK")
+    else:
+	configs.append("User nginx is not exists FAILED")
+	state = FAILED
+    return { 'id': _id, 'state': state, 'configs': configs }
+    
 
 
 
