@@ -1,3 +1,4 @@
+git config --global credential.helper cache
 git add .
 if [[ -v $1 ]];then 
     git commit -a -m "$1"
