@@ -7,7 +7,6 @@ import re
 import logging
 import pwd
 from salt import utils 
-#from packaging import version
 from distutils.version import LooseVersion, StrictVersion
 __virtualname__ = 'nginx_se'
 __outputter__ = {'run': 'nested'}
@@ -25,6 +24,7 @@ if utils.which('systemctl'):
 PASSED = 'Passed'
 FAILED = 'Failed'
 UNKNOWN = 'Unknown'
+NGINX_CONFIG_FILE = '/etc/nginx/nginx.conf'
 KEYS_MAP = {
     'id': 'id',
     'os': 'os',
@@ -53,6 +53,15 @@ def run():
     ]
     return nginx_se
 
+def has_config(config):
+    """ Reuse function to check if a line is in the file  """
+    config_check = config + '\n'
+    with open(NGINX_CONFIG_FILE) as file:
+        if any(line == config_check for line in file):
+            return True
+        else:
+            return False
+
 def version():
     '''
     Verify version nginx 
@@ -64,12 +73,13 @@ def version():
     configs.append(out[0])
     version = re.search( r'^(.*)/(\d+.\d+.\d+)$', out[0], re.M | re.I).group(2)
     configs.append(version)
-    if LooseVersion(version) > LooseVersion('1.6.3'):
+    if LooseVersion(version) >= LooseVersion('1.6.3'):
 	configs.append('Current nginx version >= 1.6.3 OK')
     else:
-	configs.append('Current nginx version <= 1.6.3 FALSE')
+	configs.append('Current nginx version < 1.6.3 FALSE')
 	state = FAILED
     return { 'id': _id, 'state': state, 'configs': configs }
+
 def user_nginx():
     '''
     Verify server has user nginx to run nginx 
@@ -88,8 +98,28 @@ def user_nginx():
     return { 'id': _id, 'state': state, 'configs': configs }
     
 
+def hide_vesion_check():
+    """ Reuse function to check if a line is in the file  """
+     _id = 'nginx_verison_verify'
+    configs = []
+    state = PASSED
+    config_check = config + '\n'
+    config = 'server_tokens off;'
+    if has_config(config):
+        configs.append('Config hide version nginx is on OK')
+    else: 
+        configs.append('Config hide version nginx is off FALSE')
+    return { 'id': _id, 'state': state, 'configs': configs }
 
 
-
-
-
+def check_unusable_modules():
+    """
+    Verify unusable module is disable
+    """
+     _id = 'nginx_verison_verify'
+    configs = []
+    state = PASSED
+    cmd = 'nginx -V'
+    out = __salt__['cmd.run'](cmd)
+    unusable_modules = ['mail_pop', 'mail_imap', 'http_scgi', 'http_uwsgi']
+    return { 'id': _id, 'state': state, 'configs': configs }
