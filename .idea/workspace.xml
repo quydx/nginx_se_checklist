@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4ad492b3-a169-446e-b5e1-89a9cac9b553" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change beforePath="$PROJECT_DIR$/nginx_checklist.py" afterPath="$PROJECT_DIR$/nginx_checklist.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,9 +16,11 @@
       <file leaf-file-name="nginx_checklist.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/nginx_checklist.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1808">
-              <caret line="117" column="37" lean-forward="true" selection-start-line="117" selection-start-column="37" selection-end-line="117" selection-end-column="37" />
-              <folding />
+            <state relative-caret-position="-148">
+              <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+              <folding>
+                <element signature="e#65#75#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -139,7 +139,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32896304" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298611" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16666667" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -173,7 +173,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#65#75#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -181,7 +183,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#65#75#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -189,7 +193,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#65#75#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -197,15 +203,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1504">
           <caret line="94" column="46" lean-forward="true" selection-start-line="94" selection-start-column="46" selection-end-line="94" selection-end-column="46" />
-          <folding />
+          <folding>
+            <element signature="e#65#75#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/nginx_checklist.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1808">
-          <caret line="117" column="37" lean-forward="true" selection-start-line="117" selection-start-column="37" selection-end-line="117" selection-end-column="37" />
-          <folding />
+        <state relative-caret-position="-148">
+          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding>
+            <element signature="e#65#75#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

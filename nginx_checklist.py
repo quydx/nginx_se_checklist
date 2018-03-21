@@ -5,9 +5,8 @@ Nginx Security Benchmark module
 
 import re	
 import logging
-import pwd
-from salt import utils 
-from distutils.version import LooseVersion, StrictVersion
+from salt import utils
+from distutils.version import LooseVersion
 __virtualname__ = 'nginx_se'
 __outputter__ = {'run': 'nested'}
 
@@ -34,6 +33,7 @@ KEYS_MAP = {
 nginx_benchmark = {}
 log = logging.getLogger(__name__)
 
+
 def __virtual__():
     '''
     Only load module on Linux
@@ -42,16 +42,6 @@ def __virtual__():
         return __virtualname__
     return False
 
-def run():
-    '''
-    Nginx Security Benchmark
-    '''
-    nginx_se.update({v: __grain__[k] for k, v in KEYS_MAP.iteritems() if k in __grains__[k] })
-    nginx_se['type'] = 'nginx'
-    nginx_se['benchmark'] = [
-	_audit_1()    
-    ]
-    return nginx_se
 
 def has_config(config):
     """ Reuse function to check if a line is in the file  """
@@ -61,6 +51,7 @@ def has_config(config):
             return True
         else:
             return False
+
 
 def version():
     '''
@@ -97,14 +88,13 @@ def user_nginx():
         configs.append("User nginx is not exists FAILED")
     state = FAILED
     return { 'id': _id, 'state': state, 'configs': configs }
-    
+
 
 def hide_vesion_check():
-    """ Reuse function to check if a line is in the file  """
-     _id = 'nginx_verison_verify'
+    """ Function check if nginx is hide version  """
+    _id = 'nginx_verison_verify'
     configs = []
     state = PASSED
-    config_check = config + '\n'
     config = 'server_tokens off;'
     if has_config(config):
         configs.append('Config hide version nginx is on OK')
@@ -113,15 +103,39 @@ def hide_vesion_check():
     return { 'id': _id, 'state': state, 'configs': configs }
 
 
-def check_unusable_modules():
+def unusable_modules():
     """
     Verify unusable module is disable
     """
-     _id = 'nginx_verison_verify'
+    _id = 'nginx_verison_verify'
     configs = []
     state = PASSED
     cmd = 'nginx -V'
     out = __salt__['cmd.run'](cmd)
-    unusable_modules = ['mail_pop', 'mail_imap', 'http_scgi', 'http_uwsgi']
-
+    not_use_modules = ['mail_pop', 'mail_imap', 'http_scgi', 'http_uwsgi']
+    for mod in not_use_modules:
+        if mod in out:
+            configs.append(mod + ' Unusable mail_pop is installed')
+            state = FAILED
     return { 'id': _id, 'state': state, 'configs': configs }
+
+
+def disable_autoindex():
+    """ Verify nginx auto index is disable """
+    _id = 'nginx_disable_autoindedx_verify'
+    configs = []
+    state = PASSED
+    config = 'server_tokens off;'
+    if has_config(config):
+        configs.append('Config hide version nginx is on OK')
+    else:
+        configs.append('Config hide version nginx is off FALSE')
+    return {'id': _id, 'state': state, 'configs': configs}
+
+
+def folder_permission():
+    pass
+
+
+if __name__ == '__maim__':
+    pass
