@@ -39,7 +39,7 @@ def __virtual__():
     Only load module on Linux
     '''
     if 'Linux' in __salt__['grains.get']('kernel'):
-	return __virtualname__
+        return __virtualname__
     return False
 
 def run():
@@ -74,11 +74,12 @@ def version():
     version = re.search( r'^(.*)/(\d+.\d+.\d+)$', out[0], re.M | re.I).group(2)
     configs.append(version)
     if LooseVersion(version) >= LooseVersion('1.6.3'):
-	configs.append('Current nginx version >= 1.6.3 OK')
+        configs.append('Current nginx version >= 1.6.3 OK')
     else:
-	configs.append('Current nginx version < 1.6.3 FALSE')
-	state = FAILED
+        configs.append('Current nginx version < 1.6.3 FALSE')
+        state = FAILED
     return { 'id': _id, 'state': state, 'configs': configs }
+
 
 def user_nginx():
     '''
@@ -91,10 +92,10 @@ def user_nginx():
     out = __salt__['cmd.run'](cmd).splitlines()
     not_exist_user = re.search( r'^(.*)(no such user)$', out[0], re.M | re.I)
     if not not_exist_user:
-	configs.append("User nginx exists OK")
+        configs.append("User nginx exists OK")
     else:
-	configs.append("User nginx is not exists FAILED")
-	state = FAILED
+        configs.append("User nginx is not exists FAILED")
+    state = FAILED
     return { 'id': _id, 'state': state, 'configs': configs }
     
 
@@ -122,4 +123,5 @@ def check_unusable_modules():
     cmd = 'nginx -V'
     out = __salt__['cmd.run'](cmd)
     unusable_modules = ['mail_pop', 'mail_imap', 'http_scgi', 'http_uwsgi']
+
     return { 'id': _id, 'state': state, 'configs': configs }
