@@ -3,13 +3,15 @@
 Nginx Security Benchmark module
 '''
 
-import re	
+import stat
+import os
+import re
 import logging
 from salt import utils
 from distutils.version import LooseVersion
+
 __virtualname__ = 'nginx_se'
 __outputter__ = {'run': 'nested'}
-
 
 GREP = utils.which('egrep')
 CHAGE = utils.which('chage')
@@ -62,14 +64,14 @@ def version():
     state = PASSED
     out = __salt__['nginx.version']().splitlines()
     configs.append(out[0])
-    version = re.search( r'^(.*)/(\d+.\d+.\d+)$', out[0], re.M | re.I).group(2)
-    configs.append(version)
+    nginx_version = re.search(r'^(.*)/(\d+.\d+.\d+)$', out[0], re.M | re.I).group(2)
+    configs.append(nginx_version)
     if LooseVersion(version) >= LooseVersion('1.6.3'):
         configs.append('Current nginx version >= 1.6.3 OK')
     else:
         configs.append('Current nginx version < 1.6.3 FALSE')
         state = FAILED
-    return { 'id': _id, 'state': state, 'configs': configs }
+    return {'id': _id, 'state': state, 'configs': configs}
 
 
 def user_nginx():
@@ -81,13 +83,13 @@ def user_nginx():
     state = PASSED
     cmd = 'id nginx'
     out = __salt__['cmd.run'](cmd).splitlines()
-    not_exist_user = re.search( r'^(.*)(no such user)$', out[0], re.M | re.I)
+    not_exist_user = re.search(r'^(.*)(no such user)$', out[0], re.M | re.I)
     if not not_exist_user:
         configs.append("User nginx exists OK")
     else:
         configs.append("User nginx is not exists FAILED")
-    state = FAILED
-    return { 'id': _id, 'state': state, 'configs': configs }
+        state = FAILED
+    return {'id': _id, 'state': state, 'configs': configs}
 
 
 def hide_vesion_check():
@@ -98,9 +100,9 @@ def hide_vesion_check():
     config = 'server_tokens off;'
     if has_config(config):
         configs.append('Config hide version nginx is on OK')
-    else: 
+    else:
         configs.append('Config hide version nginx is off FALSE')
-    return { 'id': _id, 'state': state, 'configs': configs }
+    return {'id': _id, 'state': state, 'configs': configs}
 
 
 def unusable_modules():
@@ -117,7 +119,7 @@ def unusable_modules():
         if mod in out:
             configs.append(mod + ' Unusable mail_pop is installed')
             state = FAILED
-    return { 'id': _id, 'state': state, 'configs': configs }
+    return {'id': _id, 'state': state, 'configs': configs}
 
 
 def disable_autoindex():
@@ -133,9 +135,53 @@ def disable_autoindex():
     return {'id': _id, 'state': state, 'configs': configs}
 
 
+"""6a"""
+
+
 def folder_permission():
-    pass
+    """
+        Verify unusable module is disable
+    """
+    _id = 'nginx_version_verify'
+    configs = []
+    state = PASSED
+    cmd = 'find /etc/nginx -type d -printf "%m:%f\n"'
+    out = __salt__['cmd.run'](cmd).splitlines()
+    permissions = list(set(out.split(":")[0]))
+    if not len(permissions) == 1:
+        configs.append("folder permission has value difference to 755")
+        configs.append(out)
+        state = FAILED
+    else:
+        if list(set(out.split(":")[0])) == '775':
+            configs.append('All folder has permission 755 OK')
+    return {'id': _id, 'state': state, 'configs': configs}
 
 
-if __name__ == '__maim__':
+def audit6b():
+    """
+        Verify disable execute permission in nginx upload folder
+    """
+    nginx_upload_path = '/etc/nginx/upload'
+    _id = 'nginx_disable_execute_permission_of_upload_folder'
+    configs = []
+    state = PASSED
+    cmd = 'find ' + nginx_upload_path +' -type d -printf "%m:%f\n"
+    out = __salt__['cmd.run'](cmd).splitlines()
+    count = 0
+    for line in out:
+        if line[0] == 'd':
+            pass
+        else:
+            line_separate = line.split()
+            if 'x' in line_separate[0]:
+                configs.append('Exist executable in nginx upload folder')
+                configs.append(line)
+                count++
+    if count > 0:
+        state = FAILED
+    return {'id': _id, 'state': state, 'configs': configs}
+
+
+if __name__ == '__main__':
     pass
