@@ -428,7 +428,7 @@ def audit11d():
     _id = 'retrict_show_php_error'
     state = PASSED
     configs = []
-    cmd = 'cat ' + PHP_CONFIG_FILE + ' | grep display_errors | grep -v "^#'
+    cmd = 'cat ' + PHP_CONFIG_FILE + ' | grep display_errors | grep -v "^#"'
     out = __salt__['cmd.run'](cmd).splitlines()[0]
     if 'No such file or directory' in out:
         configs.append(PHP_CONFIG_FILE + 'not found')
@@ -447,7 +447,7 @@ def audit11e():
     state = PASSED
     configs = []
     require = 'expose_php=Off'
-    cmd = 'cat ' + PHP_CONFIG_FILE + ' | grep display_errors | grep -v "^#'
+    cmd = 'cat ' + PHP_CONFIG_FILE + ' | grep display_errors | grep -v "^#"'
     out = __salt__['cmd.run'](cmd).splitlines()[0]
     if 'No such file or directory' in out:
         configs.append(PHP_CONFIG_FILE + 'not found')
@@ -466,7 +466,7 @@ def audit11f():
     state = PASSED
     configs = []
     require = 'sql.safe_mode=On'
-    cmd = 'cat ' + PHP_CONFIG_FILE + ' | grep sql.safe_mode | grep -v "^#'
+    cmd = 'cat ' + PHP_CONFIG_FILE + ' | grep sql.safe_mode | grep -v "^#"'
     out = __salt__['cmd.run'](cmd).splitlines()[0]
     if 'No such file or directory' in out:
         configs.append(PHP_CONFIG_FILE + 'not found')
