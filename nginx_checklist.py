@@ -332,7 +332,7 @@ def audit8():
             pass
         else:
             not_config_page.append(page)
-        configs.append('Page error ' + ','.join(not_config_page) + 'has not configured')
+        configs.append('Page error ' + ','.join(str(num) for num in not_config_page ) + 'has not configured')
         state = FAILED
     return {'id': _id, 'state': state, 'configs': configs}
 
