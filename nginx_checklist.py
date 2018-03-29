@@ -249,7 +249,7 @@ def audit6a():
     state = PASSED
     cmd = 'find /etc/nginx -type d -printf "%m:%f\n"'
     out = __salt__['cmd.run'](cmd).splitlines()
-    permissions = list(set(out.split(":")[0]))
+    permissions = list(set(out[0].split(":")))
     if not len(permissions) == 1:
         configs.append("folder permission has value difference to 755")
         configs.append(out)
