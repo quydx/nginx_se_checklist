@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4ad492b3-a169-446e-b5e1-89a9cac9b553" name="Default" comment="" />
+    <list default="true" id="4ad492b3-a169-446e-b5e1-89a9cac9b553" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/nginx_checklist.py" beforeDir="false" afterPath="$PROJECT_DIR$/nginx_checklist.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,8 +16,8 @@
       <file leaf-file-name="nginx_checklist.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/nginx_checklist.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="63">
-              <caret line="270" column="60" selection-start-line="270" selection-start-column="11" selection-end-line="270" selection-end-column="60" />
+            <state relative-caret-position="384">
+              <caret line="312" column="33" selection-start-line="312" selection-start-column="33" selection-end-line="312" selection-end-column="33" />
               <folding>
                 <element signature="e#65#74#0" expanded="true" />
               </folding>
@@ -32,6 +34,7 @@
       <find>out.split</find>
       <find>nginx_version_verify</find>
       <find>diff</find>
+      <find>No C</find>
     </findStrings>
     <replaceStrings>
       <replace>file_has_line(config)</replace>
@@ -329,8 +332,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/nginx_checklist.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="270" column="60" selection-start-line="270" selection-start-column="11" selection-end-line="270" selection-end-column="60" />
+        <state relative-caret-position="384">
+          <caret line="312" column="33" selection-start-line="312" selection-start-column="33" selection-end-line="312" selection-end-column="33" />
           <folding>
             <element signature="e#65#74#0" expanded="true" />
           </folding>

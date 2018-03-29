@@ -310,6 +310,7 @@ def audit7():
         else:
             configs.append('Configs allowed method is FAILED')
     else:
+        configs.append("No configuration for allow method found.")
         state = FAILED
     return {'id': _id, 'state': state, 'configs': configs}
 
