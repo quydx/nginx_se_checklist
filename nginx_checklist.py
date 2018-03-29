@@ -354,13 +354,18 @@ def audit11():
     configs = []
     with open(NGINX_CONFIG_FILE, 'r') as f:
         lines = f.read().split("\n")
+    s = None
     for i, line in enumerate(lines):
         if 'listen' in line:
             s = re.search(r'.*listen\s+443\s+ssl\s+http2\s+default_server', line, re.I | re.M)
             if s:
-                configs.append('HTTPS is configured OK')
+                break
             else:
-                configs.append('HTTPS is not configured FAILED')
+                continue
+    if s:
+        configs.append('HTTPS is configured OK')
+    else:
+        configs.append('HTTPS is not configured FAILED')
     return {'id': _id, 'state': state, 'configs': configs}
 
 
