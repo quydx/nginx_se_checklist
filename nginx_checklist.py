@@ -413,6 +413,7 @@ def audit11c():
         state = FAILED
     else:
         disables = out.replace(" ", "").split("=")
+        disables_modules = []
         if len(disables) > 1:
             disables_modules = disables[1].split(",")
         if set(unusable_func) < set(disables_modules):

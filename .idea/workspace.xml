@@ -14,8 +14,8 @@
       <file leaf-file-name="nginx_checklist.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/nginx_checklist.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="412" column="22" lean-forward="true" selection-start-line="412" selection-start-column="22" selection-end-line="412" selection-end-column="22" />
+            <state relative-caret-position="343">
+              <caret line="416" column="28" selection-start-line="416" selection-start-column="12" selection-end-line="416" selection-end-column="28" />
               <folding>
                 <element signature="e#65#74#0" expanded="true" />
               </folding>
@@ -126,7 +126,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -327,8 +327,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/nginx_checklist.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="412" column="22" lean-forward="true" selection-start-line="412" selection-start-column="22" selection-end-line="412" selection-end-column="22" />
+        <state relative-caret-position="343">
+          <caret line="416" column="28" selection-start-line="416" selection-start-column="12" selection-end-line="416" selection-end-column="28" />
           <folding>
             <element signature="e#65#74#0" expanded="true" />
           </folding>
