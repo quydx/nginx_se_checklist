@@ -502,8 +502,8 @@ def audit12():
     cmd = 'cat ' + NGINX_CONFIG_FILE + ' | grep access_log | grep -v "^#"'
     access_log = __salt__['cmd.run'](cmd).splitlines()
     if len(log_format) > 0 and len(access_log) > 0 and\
-        re.search(r'\s*log_format\s+main\s+.*;', log_format) and\
-        re.search(r'\s*access_log\s+main.*', access_log):
+        re.search(r'\s*log_format\s+main\s+.*;', log_format[0]) and\
+            re.search(r'\s*access_log\s+main.*', access_log[0]):
         pass
     else:
         state = FAILED
