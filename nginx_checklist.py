@@ -46,6 +46,44 @@ def __virtual__():
     return False
 
 
+def run():
+    '''
+    Operation System Security Benchmark.
+
+    CLI Example:
+
+    .. code-block:: bash
+
+        salt '*' os_benchmark.run
+    '''
+    nginx_benchmark.update({v: __grains__[k] for k, v in KEYS_MAP.iteritems() if k in __grains__ and __grains__[k]})
+    nginx_benchmark['type'] = 'os'
+    nginx_benchmark['benchmark'] = [
+        audit1(),
+        audit2(),
+        audit3_2(),
+        audit3_3(),
+        audit3_4(),
+        audit3_5(),
+        audit3_6(),
+        audit4(),
+        audit5(),
+        audit6a(),
+        audit6b(),
+        audit7(),
+        audit8(),
+        audit9(),
+        audit11(),
+        audit11a(),
+        audit11b(),
+        audit11c(),
+        audit11d(),
+        audit11e(),
+        audit11f(),
+    ]
+    return nginx_benchmark
+
+
 def file_has_line(file, config):
     """ Reuse function to check if a line is in the file  """
     with open(file) as f:
@@ -66,7 +104,7 @@ def audit1():
     configs.append(out[0])
     nginx_version = re.search(r'^(.*)/(\d+.\d+.\d+)$', out[0], re.M | re.I).group(2)
     configs.append(nginx_version)
-    if LooseVersion(version) >= LooseVersion('1.6.3'):
+    if LooseVersion(nginx_version) >= LooseVersion('1.6.3'):
         configs.append('Current nginx version >= 1.6.3 OK')
     else:
         configs.append('Current nginx version < 1.6.3 FALSE')
