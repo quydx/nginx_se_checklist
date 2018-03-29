@@ -300,17 +300,17 @@ def audit7():
 
     for i, line in enumerate(lines):
         s = re.search(r'^if\s*\(\$request_method\s*!~\s*\^(\(.*)\).*$', line, re.M | re.I)
-        if s:
-            method_allowed = s.group(1).replace(" ", "").split("|")
-            allowed_arr = ['GET', 'POST', 'HEAD']
-            next_line = line[i + 1]
-            if re.search(r'^.*return\s*444.*$', next_line, re.M | re.I)\
-                    and method_allowed.sort() == allowed_arr.sort():
-                configs.append('Config allowed method is OK')
-            else:
-                configs.append('Configs allowed method is FAILED')
+    if s:
+        method_allowed = s.group(1).replace(" ", "").split("|")
+        allowed_arr = ['GET', 'POST', 'HEAD']
+        next_line = line[i + 1]
+        if re.search(r'^.*return\s*444.*$', next_line, re.M | re.I)\
+                and method_allowed.sort() == allowed_arr.sort():
+            configs.append('Config allowed method is OK')
         else:
-            configs.append('No configs method found ! FAILED')
+            configs.append('Configs allowed method is FAILED')
+    else:
+        state = FAILED
     return {'id': _id, 'state': state, 'configs': configs}
 
 
