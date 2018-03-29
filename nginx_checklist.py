@@ -380,13 +380,13 @@ def audit11a():
 
 
 def audit11b():
-    """Retrict access PHP folder"""
+    """ Retrict access PHP folder """
     _id = 'retrict_access_php_folder'
     state = PASSED
     configs = []
     open_basedir = '/var/www/html'
     require = 'open_basedir=' + open_basedir
-    cmd = 'cat ' + PHP_CONFIG_FILE + ' | grep open_basedir | grep -v "^#'
+    cmd = 'cat ' + PHP_CONFIG_FILE + ' | grep open_basedir | grep -v "^#"'
     out = __salt__['cmd.run'](cmd).splitlines()[0]
     if 'No such file or directory' in out:
         configs.append(PHP_CONFIG_FILE + 'not found')
@@ -412,7 +412,7 @@ def audit11c():
         configs.append(PHP_CONFIG_FILE + 'not found')
         state = FAILED
     else:
-        disables = out.replace(" ","").split("=")[1].split(",")
+        disables = out.replace(" ", "").split("=")[1].split(",")
         if set(unusable_func) < set(disables):
             pass
         else:

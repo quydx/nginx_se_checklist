@@ -16,8 +16,8 @@
       <file leaf-file-name="nginx_checklist.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/nginx_checklist.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="166">
-              <caret line="251" column="46" lean-forward="true" selection-start-line="251" selection-start-column="46" selection-end-line="251" selection-end-column="46" />
+            <state relative-caret-position="157">
+              <caret line="386" column="34" lean-forward="true" selection-start-line="386" selection-start-column="34" selection-end-line="386" selection-end-column="34" />
               <folding>
                 <element signature="e#65#74#0" expanded="true" />
               </folding>
@@ -329,8 +329,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/nginx_checklist.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="251" column="46" lean-forward="true" selection-start-line="251" selection-start-column="46" selection-end-line="251" selection-end-column="46" />
+        <state relative-caret-position="157">
+          <caret line="386" column="34" lean-forward="true" selection-start-line="386" selection-start-column="34" selection-end-line="386" selection-end-column="34" />
           <folding>
             <element signature="e#65#74#0" expanded="true" />
           </folding>
