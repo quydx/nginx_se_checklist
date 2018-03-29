@@ -412,7 +412,9 @@ def audit11c():
         configs.append(PHP_CONFIG_FILE + 'not found')
         state = FAILED
     else:
-        disables = out.replace(" ", "").split("=")[1].split(",")
+        disables = out.replace(" ", "").split("=")
+        if len(disables) > 1:
+            disables_modules = disables[1].split(",")
         if set(unusable_func) < set(disables):
             pass
         else:
