@@ -297,9 +297,13 @@ def audit7():
     state = PASSED
     with open(NGINX_CONFIG_FILE, 'r') as f:
         lines = f.read().split("\n")
-
+    s = None
     for i, line in enumerate(lines):
         s = re.search(r'^if\s*\(\$request_method\s*!~\s*\^(\(.*)\).*$', line, re.M | re.I)
+        if s:
+            break
+        else:
+            continue
     if s:
         method_allowed = s.group(1).replace(" ", "").split("|")
         allowed_arr = ['GET', 'POST', 'HEAD']
@@ -321,13 +325,15 @@ def audit8():
     state = PASSED
     configs = []
     pages = [400, 401, 402, 403, 404, 500, 501, 502]
+    not_config_page = []
     for page in pages:
         config_line = 'error_page ' + str(page) + ' /error.html;'
         if file_has_line(NGINX_CONFIG_FILE, config_line):
             pass
         else:
-            configs.append('Page error' + str(page) + 'has not change yet')
-            state = FAILED
+            not_config_page.append(page)
+        configs.append('Page error ' + ','.join(not_config_page) + 'has not configured')
+        state = FAILED
     return {'id': _id, 'state': state, 'configs': configs}
 
 

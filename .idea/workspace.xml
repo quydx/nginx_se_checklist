@@ -16,8 +16,8 @@
       <file leaf-file-name="nginx_checklist.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/nginx_checklist.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="312" column="33" selection-start-line="312" selection-start-column="33" selection-end-line="312" selection-end-column="33" />
+            <state relative-caret-position="304">
+              <caret line="334" column="44" selection-start-line="334" selection-start-column="44" selection-end-line="334" selection-end-column="44" />
               <folding>
                 <element signature="e#65#74#0" expanded="true" />
               </folding>
@@ -35,6 +35,8 @@
       <find>nginx_version_verify</find>
       <find>diff</find>
       <find>No C</find>
+      <find>HTT</find>
+      <find>400</find>
     </findStrings>
     <replaceStrings>
       <replace>file_has_line(config)</replace>
@@ -332,8 +334,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/nginx_checklist.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="312" column="33" selection-start-line="312" selection-start-column="33" selection-end-line="312" selection-end-column="33" />
+        <state relative-caret-position="304">
+          <caret line="334" column="44" selection-start-line="334" selection-start-column="44" selection-end-line="334" selection-end-column="44" />
           <folding>
             <element signature="e#65#74#0" expanded="true" />
           </folding>
