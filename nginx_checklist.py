@@ -252,12 +252,13 @@ def audit6a():
     permissions = []
     for line in out:
         permissions.append(line.split(":")[0])
+    permissions = list(set(permissions))
     if not len(permissions) == 1:
         configs.append("folder permission has value difference to 755")
         configs.append(out)
         state = FAILED
     else:
-        if list(set(out.split(":")[0])) == '775':
+        if permissions[0] == '755':
             configs.append('All folder has permission 755 OK')
     return {'id': _id, 'state': state, 'configs': configs}
 
