@@ -80,6 +80,7 @@ def run():
         audit11d(),
         audit11e(),
         audit11f(),
+        audit12(),
     ]
     return nginx_benchmark
 
@@ -165,7 +166,7 @@ def audit3_3():
     if file_has_line(NGINX_CONFIG_FILE, config):
         pass
     else:
-        state =FAILED
+        state = FAILED
     return {'id': _id, 'state': state, 'configs': configs}
 
 
@@ -178,7 +179,7 @@ def audit3_4():
     if file_has_line(NGINX_CONFIG_FILE, config):
         pass
     else:
-        state =FAILED
+        state = FAILED
     return {'id': _id, 'state': state, 'configs': configs}
 
 
@@ -191,8 +192,9 @@ def audit3_5():
     if file_has_line(NGINX_CONFIG_FILE, config):
         pass
     else:
-        state =FAILED
+        state = FAILED
     return {'id': _id, 'state': state, 'configs': configs}
+
 
 def audit3_6():
     """ Enable HSTS """
@@ -333,14 +335,14 @@ def audit8():
         else:
             not_config_page.append(page)
     if len(not_config_page) > 0:
-        configs.append('Page error ' + ', '.join(str(num) for num in not_config_page ) + ' has not configured')
+        configs.append('Page error ' + ', '.join(str(num) for num in not_config_page) + ' has not configured')
         state = FAILED
     return {'id': _id, 'state': state, 'configs': configs}
 
 
 def audit9():
-    """Change error page Nginx"""
-    _id = 'verify_change_error_page'
+    """Remove default page nginx"""
+    _id = 'remove_default_page_nginx'
     state = PASSED
     configs = []
     default_pages = ['/usr/share/nginx/html/index.html']
@@ -374,9 +376,6 @@ def audit11():
     else:
         configs.append('HTTPS is not configured FAILED')
     return {'id': _id, 'state': state, 'configs': configs}
-
-
-"""PHP Check """
 
 
 def audit11a():
@@ -490,4 +489,22 @@ def audit11f():
             pass
         else:
             state = FAILED
+    return {'id': _id, 'state': state, 'configs': configs}
+
+
+def audit12():
+    """ Verify Log configuration of Nginx"""
+    _id = 'verify_log_configuration'
+    state = PASSED
+    configs = []
+    cmd = 'cat ' + NGINX_CONFIG_FILE + ' | grep log_format | grep -v "^#"'
+    log_format = __salt__['cmd.run'](cmd).splitlines()
+    cmd = 'cat ' + NGINX_CONFIG_FILE + ' | grep access_log | grep -v "^#"'
+    access_log = __salt__['cmd.run'](cmd).splitlines()
+    if len(log_format) > 0 and len(access_log) > 0 and\
+        re.search(r'\s*log_format\s+main\s+.*;', log_format) and\
+        re.search(r'\s*access_log\s+main.*', access_log):
+        pass
+    else:
+        state = FAILED
     return {'id': _id, 'state': state, 'configs': configs}
