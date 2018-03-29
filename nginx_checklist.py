@@ -406,7 +406,7 @@ def audit11c():
     configs = []
     unusable_func = ['exec', 'passthru', 'shell_exec', 'ystem', 'proc_open', 'popen', 'curl_exec',
                      'curl_multi_exec', 'parse_ini_file', 'show_source', 'symlink']
-    cmd = 'cat ' + PHP_CONFIG_FILE + ' | grep disable_functions | grep -v "^#'
+    cmd = 'cat ' + PHP_CONFIG_FILE + ' | grep disable_functions | grep -v "^#"'
     out = __salt__['cmd.run'](cmd).splitlines()[0]
     if 'No such file or directory' in out:
         configs.append(PHP_CONFIG_FILE + 'not found')
