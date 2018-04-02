@@ -47,7 +47,7 @@ def __virtual__():
 
 
 def run():
-    '''
+    """
     Operation System Security Benchmark.
 
     CLI Example:
@@ -55,7 +55,7 @@ def run():
     .. code-block:: bash
 
         salt '*' os_benchmark.run
-    '''
+    """
     nginx_benchmark.update({v: __grains__[k] for k, v in KEYS_MAP.iteritems() if k in __grains__ and __grains__[k]})
     nginx_benchmark['type'] = 'os'
     nginx_benchmark['benchmark'] = [
@@ -83,6 +83,53 @@ def run():
         audit12(),
     ]
     return nginx_benchmark
+
+
+def check_kernel_version():
+    """ Verify version nginx """
+    _id = 'nginx_version_verify'
+    configs = []
+    state = PASSED
+    cmd = 'uname -r'
+    out = __salt__['cmd.run']().splitlines()
+    configs.append(out[0])
+    kernel_version = re.search(r'^(.*)/(\d+.\d+.\d+).*$', out[0], re.M | re.I).group(2)
+    configs.append(kernel_version)
+    kernel_line = '.'.join(kernel_version.split('.')[:2])
+    kernel_3 = '.'.join(kernel_version.split('.')[:3])
+    if kernel_line == '2.6':
+        if LooseVersion('2.6.18') <= LooseVersion(kernel_3) < LooseVersion('2.6.19'):
+            if LooseVersion(kernel_3) > LooseVersion('2.6.18.8'):
+                pass
+            else:
+                state = FAILED
+        elif LooseVersion('2.6.32') <= LooseVersion(kernel_3) < LooseVersion('2.6.33'):
+            if LooseVersion(kernel_3) > LooseVersion('2.6.32.27'):
+                pass
+            else:
+                state = FAILED
+        elif LooseVersion('2.6.34') <= LooseVersion(kernel_3) < LooseVersion('2.6.35'):
+            if LooseVersion(kernel_3) > LooseVersion('2.6.34.7'):
+                pass
+            else:
+                state = FAILED
+        else:
+            configs.append('Kernel ' + kernel_3 + 'not in kernel line check')
+    elif kernel_line == '3.0':
+        if LooseVersion('3.0.0') <= LooseVersion(kernel_3) < LooseVersion('3.1.0'):
+            if LooseVersion(kernel_3) > LooseVersion('3.0.44'):
+                pass
+            else:
+                state = FAILED
+    elif kernel_line == '3.2':
+        if LooseVersion('3.2.0') <= LooseVersion(kernel_3) < LooseVersion('3.3.0'):
+            if LooseVersion(kernel_3) > LooseVersion('3.0.30'):
+                pass
+            else:
+                state = FAILED
+    else:
+        configs.append('Kernel ' + kernel_3 + 'not in kernel line check')
+    return {'id': _id, 'state': state, 'configs': configs}
 
 
 def file_has_line(file, config):
