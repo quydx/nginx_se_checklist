@@ -112,10 +112,10 @@ def check_kernel_version():
         else:
             state = FAILED
     elif centos_version == '7':
-            if LooseVersion(kernel_3) > LooseVersion('3.10.0'):
-                pass
-            else:
-                state = FAILED
+        if LooseVersion(kernel_3) > LooseVersion('3.10.0'):
+            pass
+        else:
+            state = FAILED
     return {'id': _id, 'state': state, 'configs': configs}
 
 
