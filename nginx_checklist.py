@@ -86,49 +86,36 @@ def run():
 
 
 def check_kernel_version():
-    """ Verify version nginx """
-    _id = 'nginx_version_verify'
+    """ Verify version kernel"""
+    _id = 'kernel_version_verify'
     configs = []
     state = PASSED
     cmd = 'uname -r'
-    out = __salt__['cmd.run']().splitlines()
+    out = __salt__['cmd.run'](cmd).splitlines()
     configs.append(out[0])
     kernel_version = re.search(r'^(.*)/(\d+.\d+.\d+).*$', out[0], re.M | re.I).group(2)
     configs.append(kernel_version)
-    kernel_line = '.'.join(kernel_version.split('.')[:2])
     kernel_3 = '.'.join(kernel_version.split('.')[:3])
-    if kernel_line == '2.6':
-        if LooseVersion('2.6.18') <= LooseVersion(kernel_3) < LooseVersion('2.6.19'):
-            if LooseVersion(kernel_3) > LooseVersion('2.6.18.8'):
-                pass
-            else:
-                state = FAILED
-        elif LooseVersion('2.6.32') <= LooseVersion(kernel_3) < LooseVersion('2.6.33'):
-            if LooseVersion(kernel_3) > LooseVersion('2.6.32.27'):
-                pass
-            else:
-                state = FAILED
-        elif LooseVersion('2.6.34') <= LooseVersion(kernel_3) < LooseVersion('2.6.35'):
-            if LooseVersion(kernel_3) > LooseVersion('2.6.34.7'):
-                pass
-            else:
-                state = FAILED
+
+    cmd = 'cat /etc/centos-release'
+    out = __salt__['cmd.run'](cmd).splitlines()
+    centos_version = re.search(r'^.*\.(\d+).*', out[0], re.M | re.I).group(1)
+    configs.append(centos_version)
+    if centos_version == '5':
+        if LooseVersion(kernel_3) > LooseVersion('2.6.18.8'):
+            pass
         else:
-            configs.append('Kernel ' + kernel_3 + 'not in kernel line check')
-    elif kernel_line == '3.0':
-        if LooseVersion('3.0.0') <= LooseVersion(kernel_3) < LooseVersion('3.1.0'):
-            if LooseVersion(kernel_3) > LooseVersion('3.0.44'):
+            state = FAILED
+    elif centos_version == '6':
+        if LooseVersion(kernel_3) > LooseVersion('2.6.32.27'):
+            pass
+        else:
+            state = FAILED
+    elif centos_version == '7':
+            if LooseVersion(kernel_3) > LooseVersion('3.10.0'):
                 pass
             else:
                 state = FAILED
-    elif kernel_line == '3.2':
-        if LooseVersion('3.2.0') <= LooseVersion(kernel_3) < LooseVersion('3.3.0'):
-            if LooseVersion(kernel_3) > LooseVersion('3.0.30'):
-                pass
-            else:
-                state = FAILED
-    else:
-        configs.append('Kernel ' + kernel_3 + 'not in kernel line check')
     return {'id': _id, 'state': state, 'configs': configs}
 
 
