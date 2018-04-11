@@ -54,7 +54,7 @@ def run():
 
     .. code-block:: bash
 
-        salt '*' os_benchmark.run
+        salt '*' nginx_se.run
     """
     nginx_benchmark.update({v: __grains__[k] for k, v in KEYS_MAP.iteritems() if k in __grains__ and __grains__[k]})
     nginx_benchmark['type'] = 'os'
@@ -387,6 +387,20 @@ def audit9():
                 state = FAILED
         else:
             configs.append('Default page is removed OK')
+    return {'id': _id, 'state': state, 'configs': configs}
+
+
+def audit10():
+    """Check if nginx load security mode"""
+    _id = 'verify_security_mode_nginx'
+    state = PASSED
+    configs = []
+    config = 'ModSecurityEnabled on;'
+    if file_has_line(NGINX_CONFIG_FILE, config):
+        pass
+    else:
+        configs.append('ModSecurity nginx is disable')
+        state = FAILED
     return {'id': _id, 'state': state, 'configs': configs}
 
 
